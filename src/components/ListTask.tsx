@@ -1,7 +1,43 @@
-export const ListTask = () => {
+import { Trash2Icon } from "lucide-react";
+import { useFindAll } from "../hooks/useTask";
+
+export function ListTask() {
+  const { data: tasks, isLoading, isError } = useFindAll();
+
+  if (isLoading) {
+    return (
+      <div className="border-4 border-slate-500 border-t-white w-10 h-10 mt-3.5 rounded-full animate-spin"></div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="text-red-500 font-bold text-center w-[400px] mt-3.5">
+        Aconteceu algum erro inexperado! <br /> Tente novamente...
+      </div>
+    );
+  }
+
   return (
     <>
-      <div></div>
+      {tasks?.length !== 0 ? (
+        <ul className="bg-slate-400 flex flex-col gap-1.5 w-[400px] p-2 rounded">
+          {tasks?.map((task) => (
+            <li className="flex gap-1" key={task.id}>
+              <button className="bg-slate-300 p-1.5 cursor-pointer w-full rounded text-white font-bold text-left">
+                {task.title}
+              </button>
+              <button className="bg-slate-300 p-1.5 cursor-pointer rounded text-red-500 font-bold">
+                <Trash2Icon></Trash2Icon>
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="bg-slate-400 w-[400px] p-2 rounded text-white font-bold text-center">
+          Nenhuma tarefa encontrada.
+        </div>
+      )}
     </>
   );
-};
+}

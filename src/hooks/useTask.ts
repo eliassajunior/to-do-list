@@ -9,12 +9,12 @@ export function useFindAll() {
 }
 
 export function useCreate() {
-  const useQuery = useQueryClient();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: create,
     onSuccess: () => {
-      useQuery.invalidateQueries({ queryKey: ["tasks"] });
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
   });
 }
