@@ -1,13 +1,13 @@
 import type { CreateTask } from "../types/createTask";
-import { useCreate } from "../hooks/useTask";
+import { useCreateTask } from "../hooks/useTask";
 import { useForm } from "react-hook-form";
 
-export const AddTask = () => {
+export function AddTask() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<CreateTask>();
-  const useCreateTask = useCreate();
+  const useCreate = useCreateTask();
 
   function onSubmit(body: CreateTask) {
-    useCreateTask.mutate(body);
+    useCreate.mutate(body);
     reset();
   }
 
@@ -41,4 +41,4 @@ export const AddTask = () => {
       </button>
     </form>
   );
-};
+}

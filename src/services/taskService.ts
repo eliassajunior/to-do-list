@@ -7,7 +7,13 @@ export async function findAll(): Promise<Task[]> {
   return response.data;
 }
 
-export async function create(body: CreateTask): Promise<Task> {
+export async function createTask(body: CreateTask): Promise<Task> {
   const response = await api.post("task/", body);
+  console.log(response.data);
+  return response.data;
+}
+
+export async function deleteTask(id: number) {
+  const response = await api.delete(`task/${id}`);
   return response.data;
 }

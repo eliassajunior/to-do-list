@@ -1,8 +1,13 @@
 import { Trash2Icon } from "lucide-react";
-import { useFindAll } from "../hooks/useTask";
+import { useDeleteTask, useFindAll } from "../hooks/useTask";
 
 export function ListTask() {
   const { data: tasks, isLoading, isError } = useFindAll();
+  const useDelete = useDeleteTask();
+
+  function onDelete(id: number) {
+    useDelete.mutate(id);
+  }
 
   if (isLoading) {
     return (
@@ -27,7 +32,7 @@ export function ListTask() {
               <button className="bg-slate-300 p-1.5 cursor-pointer w-full rounded text-white font-bold text-left">
                 {task.title}
               </button>
-              <button className="bg-slate-300 p-1.5 cursor-pointer rounded text-red-500 font-bold">
+              <button onClick={() => onDelete(task.id)} className="bg-slate-300 p-1.5 cursor-pointer rounded text-red-500 font-bold">
                 <Trash2Icon></Trash2Icon>
               </button>
             </li>

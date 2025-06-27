@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { create, findAll } from "../services/taskService";
+import { createTask, deleteTask, findAll } from "../services/taskService";
 
 export function useFindAll() {
   return useQuery({
@@ -8,11 +8,22 @@ export function useFindAll() {
   });
 }
 
-export function useCreate() {
+export function useCreateTask() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: create,
+    mutationFn: createTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    },
+  });
+}
+
+export function useDeleteTask() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteTask,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
