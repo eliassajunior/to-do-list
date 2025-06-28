@@ -1,9 +1,11 @@
 import { ListTask } from "./components/ListTask";
-import useTitlePage from "./hooks/useTitlePage";
 import { AddTask } from "./components/AddTask";
+import { useEffect } from "react";
 
 export default function App() {
-  useTitlePage("Lista de Tarefas");
+  useEffect(() => {
+    document.title = "Lista de Tarefas";
+  });
 
   return (
     <>

@@ -3,7 +3,13 @@ import { useCreateTask } from "../hooks/useTask";
 import { useForm } from "react-hook-form";
 
 export function AddTask() {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<CreateTask>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<CreateTask>();
+
   const useCreate = useCreateTask();
 
   function onSubmit(body: CreateTask) {
@@ -12,7 +18,10 @@ export function AddTask() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="bg-slate-400 flex flex-col gap-1.5 w-[400px] p-2 rounded">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="bg-slate-300 flex flex-col gap-1.5 w-[400px] p-2 rounded"
+    >
       <div className="flex flex-col justify-center gap-0.5">
         <input
           type="text"
@@ -36,7 +45,10 @@ export function AddTask() {
         />
       </div>
 
-      <button type="submit" className="bg-slate-300 p-1.5 cursor-pointer rounded text-white font-bold">
+      <button
+        type="submit"
+        className="bg-slate-400 p-1.5 cursor-pointer rounded text-white font-bold hover:bg-slate-500"
+      >
         Adicionar
       </button>
     </form>
