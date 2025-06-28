@@ -1,12 +1,21 @@
 import { Trash2Icon } from "lucide-react";
-import { useDeleteTask, useFindAll } from "../hooks/useTask";
+import {
+  useDeleteTask,
+  useFindAll,
+  useUpdateCompleteTask,
+} from "../hooks/useTask";
 
 export function ListTask() {
   const { data: tasks, isLoading, isError } = useFindAll();
   const useDelete = useDeleteTask();
+  const useUpdateComplete = useUpdateCompleteTask();
 
   function onDelete(id: number) {
     useDelete.mutate(id);
+  }
+
+  function onCompleteTask(id: number, complete: boolean) {
+    useUpdateComplete.mutate({ id, complete: !complete });
   }
 
   if (isLoading) {
@@ -29,10 +38,20 @@ export function ListTask() {
         <ul className="bg-slate-400 flex flex-col gap-1.5 w-[400px] p-2 rounded">
           {tasks?.map((task) => (
             <li className="flex gap-1" key={task.id}>
-              <button className="bg-slate-300 p-1.5 cursor-pointer w-full rounded text-white font-bold text-left">
+              <button
+                onClick={() => onCompleteTask(task.id, task.complete)}
+                className={
+                  task.complete === true
+                    ? "bg-slate-300 p-1.5 cursor-pointer w-full rounded text-white font-bold text-left line-through"
+                    : "bg-slate-300 p-1.5 cursor-pointer w-full rounded text-white font-bold text-left"
+                }
+              >
                 {task.title}
               </button>
-              <button onClick={() => onDelete(task.id)} className="bg-slate-300 p-1.5 cursor-pointer rounded text-red-500 font-bold">
+              <button
+                onClick={() => onDelete(task.id)}
+                className="bg-slate-300 p-1.5 cursor-pointer rounded text-red-500 font-bold"
+              >
                 <Trash2Icon></Trash2Icon>
               </button>
             </li>

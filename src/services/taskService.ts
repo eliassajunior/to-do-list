@@ -9,11 +9,15 @@ export async function findAll(): Promise<Task[]> {
 
 export async function createTask(body: CreateTask): Promise<Task> {
   const response = await api.post("task/", body);
-  console.log(response.data);
   return response.data;
 }
 
-export async function deleteTask(id: number) {
+export async function updateCompleteTask(id: number, complete: boolean): Promise<Task> {
+  const response = await api.patch(`task/${id}`, { complete });
+  return response.data;
+}
+
+export async function deleteTask(id: number): Promise<Task> {
   const response = await api.delete(`task/${id}`);
   return response.data;
 }
