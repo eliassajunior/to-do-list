@@ -12,7 +12,7 @@ export async function createTask(body: CreateTask): Promise<Task> {
   return response.data;
 }
 
-export async function updateCompleteTask(id: number, complete: boolean): Promise<Task> {
+export async function updateTask(id: number, complete: boolean): Promise<Task> {
   const response = await api.patch(`task/${id}`, { complete });
   return response.data;
 }

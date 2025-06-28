@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { updateCompleteTask, createTask, deleteTask, findAll } from "../services/taskService";
+import { updateTask, createTask, deleteTask, findAll } from "../services/taskService";
 import type { CreateTask } from "../types/createTask";
 
 export function useFindAll() {
@@ -23,16 +23,16 @@ export function useCreateTask() {
   });
 }
 
-export function useUpdateCompleteTask() {
+export function useUpdateTask() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, complete }: { id: number; complete: boolean }) => updateCompleteTask(id, complete),
+    mutationFn: ({ id, complete }: { id: number; complete: boolean }) => updateTask(id, complete),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
     onError: (error) => {
-      console.log("Error changing task to \"complete\": ", error);
+      console.log("Error updating task: ", error);
     },
   });
 }

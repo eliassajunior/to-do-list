@@ -4,24 +4,20 @@ import { ArrowLeftIcon } from "lucide-react";
 import { useEffect } from "react";
 
 export function TaskDetail() {
-  const { data: tasks, isLoading, isError } = useFindAll();
+  const { data: tasks, isLoading } = useFindAll();
   const { id } = useParams();
   const navigate = useNavigate();
+
   const task = tasks?.find((task) => task.id === Number(id));
 
   useEffect(() => {
     document.title = task?.title ? `${task.title}` : "Detalhes da Tarefa";
-  });
+  }, [task?.title]);
 
   if (isLoading) {
     return (
-      <div className="border-4 border-slate-500 border-t-white w-10 h-10 mt-3.5 rounded-full animate-spin"></div>
-    );
-  }
-  if (isError) {
-    return (
-      <div className="text-red-500 font-bold text-center w-[400px] mt-3.5">
-        Aconteceu algum erro inesperado! <br /> Tente novamente...
+      <div className="bg-slate-500 flex justify-center items-center w-full h-screen">
+        <div className="border-4 border-slate-500 border-t-white w-10 h-10 mt-3.5 rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -30,10 +26,7 @@ export function TaskDetail() {
     <>
       <div className="bg-slate-500 flex justify-center items-baseline p-3.5 w-full h-screen">
         <div className="bg-slate-300 w-[400px] h-auto p-2 rounded">
-          <button
-            className="text-white cursor-pointer"
-            onClick={() => navigate("/")}
-          >
+          <button className="text-white cursor-pointer" onClick={() => navigate("/")}>
             <ArrowLeftIcon></ArrowLeftIcon>
           </button>
           <h1 className="text-white font-bold text-center pb-2">
