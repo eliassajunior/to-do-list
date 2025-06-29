@@ -1,9 +1,9 @@
-import { ArrowRightIcon, Trash2Icon } from "lucide-react";
+import { ArrowRightIcon, CheckIcon, Trash2Icon } from "lucide-react";
 import { useDeleteTask, useFindAll, useUpdateTask } from "../hooks/useTask";
 import { useNavigate } from "react-router-dom";
 
 export function ListTask() {
-  const { data: tasks, isLoading, isError } = useFindAll();
+  const { data: tasks, isLoading } = useFindAll();
   const navigate = useNavigate();
 
   const useDelete = useDeleteTask();
@@ -28,14 +28,21 @@ export function ListTask() {
         <ul className="bg-slate-300 flex flex-col gap-1.5 w-[400px] p-2 rounded">
           {tasks?.map((task) => (
             <li className="flex gap-1" key={task.id}>
-              <button onClick={() => onUpdate(task.id, task.complete)} className={task.complete === true ? "bg-slate-400 p-1.5 cursor-pointer w-full rounded text-white font-bold text-left line-through" : "bg-slate-400 p-1.5 cursor-pointer w-full rounded text-white font-bold text-left"}>
-                {task.title}
+              <button onClick={() => onUpdate(task.id, task.complete)} className="bg-slate-400 p-1.5 cursor-pointer w-full rounded text-white font-bold text-left">
+                {task.complete === true ? (
+                  <span className="flex justify-between">
+                    {task.title}
+                    <CheckIcon />
+                  </span>
+                ) : (
+                  <span>{task.title}</span>
+                )}
               </button>
               <button onClick={() => navigate(`/task/${task.id}`)} className="bg-slate-400 p-1.5 rounded cursor-pointer text-white font-bold">
-                <ArrowRightIcon></ArrowRightIcon>
+                <ArrowRightIcon />
               </button>
               <button onClick={() => onDelete(task.id)} className="bg-slate-400 p-1.5 cursor-pointer rounded text-red-500 font-bold">
-                <Trash2Icon></Trash2Icon>
+                <Trash2Icon />
               </button>
             </li>
           ))}

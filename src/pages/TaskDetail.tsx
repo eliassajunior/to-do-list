@@ -27,18 +27,14 @@ export function TaskDetail() {
       <div className="bg-slate-500 flex justify-center items-baseline p-3.5 w-full h-screen">
         <div className="bg-slate-300 w-[400px] h-auto p-2 rounded">
           <button className="text-white cursor-pointer" onClick={() => navigate("/")}>
-            <ArrowLeftIcon></ArrowLeftIcon>
+            <ArrowLeftIcon />
           </button>
-          <h1 className="text-white font-bold text-center pb-2">
+          <h1 className="text-white text-xl font-bold text-center pb-2">
             {task?.title}
           </h1>
-          {task?.description ? (
+          {task?.description && (
             <p className="bg-slate-400 w-full p-1.5 text-white text-center">
               {task.description}
-            </p>
-          ) : (
-            <p className="bg-slate-400 w-full p-1.5 text-white text-center">
-              Sem Descrição!
             </p>
           )}
         </div>
